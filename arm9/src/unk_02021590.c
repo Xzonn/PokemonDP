@@ -91,7 +91,7 @@ void InitFontResources_FromPreloaded(struct FontData * ptr, HeapID heapId)
 {
     u32 r4 = ptr->glyphSize * ptr->gfxHeader.numGlyphs;
     ptr->narcReadBuf = AllocFromHeap(heapId, r4);
-    ptr->uncompGlyphFunc = DecompressGlyphTiles_FromPreloaded;
+    ptr->uncompGlyphFunc = DecompressGlyphTiles_LazyFromNarc;
     NARC_ReadFromMember(ptr->narc, ptr->fileId, ptr->gfxHeader.headerSize, r4, ptr->narcReadBuf);
 }
 
@@ -119,7 +119,7 @@ void FreeLoadedFontResources_LazyFromNarc(struct FontData * ptr)
 
 void TryLoadGlyph(struct FontData * ptr, u32 param1, struct UnkStruct_02002C14_sub * ptr2)
 {
-    if (param1 <= ptr->gfxHeader.numGlyphs)
+    if (1 || param1 <= ptr->gfxHeader.numGlyphs)
         ptr->uncompGlyphFunc(ptr, (u16)(param1 - 1), ptr2);
     else
     {
@@ -202,7 +202,11 @@ u32 GetStringWidth(struct FontData * ptr, const u16 * str, u32 letterSpacing)
 
 int GetGlyphWidth_VariableWidth(struct FontData * ptr, int a1)
 {
-    return ptr->glyphWidths[a1];
+    if (a1 < ptr->gfxHeader.numGlyphs) {
+        return ptr->glyphWidths[a1];
+    } else {
+        return ptr->glyphWidths[0x0200 - 1];
+    }
 }
 
 int GetGlyphWidth_FixedWidth(struct FontData * ptr, int a1)

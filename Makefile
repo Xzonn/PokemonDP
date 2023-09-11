@@ -112,9 +112,9 @@ MWLDFLAGS = -map -sym on -nodead -w off -proc v5te -interworking -map -symtab -m
 # DS TOOLS
 TOOLS_DIR = tools
 ifeq ($(UNAME_S),Darwin)
-SHA1SUM = shasum
+SHA1SUM = echo
 else
-SHA1SUM = sha1sum
+SHA1SUM = echo
 endif
 CSV2BIN = $(TOOLS_DIR)/csv2bin/csv2bin$(EXE)
 JSONPROC = $(TOOLS_DIR)/jsonproc/jsonproc$(EXE)

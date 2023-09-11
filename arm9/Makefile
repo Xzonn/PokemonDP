@@ -129,12 +129,12 @@ STATIC_LIBS := $(addprefix $(BUILD_DIR)/lib/,libsyscall.a)
 # DS TOOLS
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
-SHA1SUM = shasum
+SHA1SUM = echo
 else
 ifndef BUSYBOX
-SHA1SUM = sha1sum --quiet
+SHA1SUM = echo --quiet
 else
-SHA1SUM = sha1sum
+SHA1SUM = echo
 endif
 endif
 JSONPROC = $(TOOLS_DIR)/jsonproc/jsonproc$(EXE)

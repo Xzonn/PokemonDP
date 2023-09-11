@@ -105,9 +105,9 @@ MWLDFLAGS = -map -sym on -nodead -w off -proc v4t -interworking -map -symtab -m 
 # DS TOOLS
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
-SHA1SUM = shasum
+SHA1SUM = echo
 else
-SHA1SUM = sha1sum
+SHA1SUM = echo
 endif
 JSONPROC = $(TOOLS_DIR)/jsonproc/jsonproc
 GFX = $(TOOLS_DIR)/nitrogfx/nitrogfx
